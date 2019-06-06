@@ -1,22 +1,31 @@
 {
-  "name": "gatsby-starter-typescript-plus",
-  "description": "A starter kit for TypeScript-based Gatsby projects with sensible defaults.",
-  "version": "1.0.0",
+  "name": "trucknet-boilerplate-typescript-react",
+  "description": "A starter kit for TypeScript-based Gatsby projects with i18n and Netlify CMS.",
+  "version": "0.0.0",
   "private": true,
-  "author": "Resi Respati <resir014@gmail.com>",
+  "author": "Alexander Gusev <goooseman@me.com>",
   "keywords": [
-    "gatsby"
+    "gatsby",
+    "trucknet",
+    "typescript",
+    "boilerplate",
+    "react"
   ],
-  "license": "MIT",
-  "main": "n/a",
   "scripts": {
     "build": "gatsby build",
     "clean": "rimraf public",
     "dev": "gatsby develop",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "precommit": "lint-staged && npm run lint",
+    "commit": "commit-prompt --no-verify",
+    "lint": "npm run lint:tsc && npm run lint:tslint",
+    "lint:tsc": "tsc -p tsconfig.json --noEmit",
+    "lint:prettier": "prettier --write \"{src,test}/**/*.ts*\"",
+    "lint:tslint": "tslint -c tslint.json -p tsconfig.json --fix"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": "~10.14.0",
+    "npm": "~6.9.0"
   },
   "dependencies": {
     "@emotion/core": "^10.0.10",
@@ -50,6 +59,10 @@
     "@types/react": "^16.8.15",
     "@types/react-dom": "^16.8.4",
     "@types/react-helmet": "^5.0.8",
-    "rimraf": "^2.6.3"
+    "prettier": "^1.18.0",
+    "rimraf": "^2.6.3",
+    "trucknet-commit": "^1.4.3",
+    "tslint": "^5.17.0",
+    "tslint-config-trucknet-io": "^1.5.2"
   }
 }
