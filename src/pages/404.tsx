@@ -1,12 +1,12 @@
 import { Link } from "gatsby";
-import * as React from "react";
+import React from "react";
 
-import Container from "../components/Container";
-import Page from "../components/Page";
-import layouts from "../layouts";
+import { Container } from "@src/components/Container";
+import { Page } from "@src/components/Page";
+import { LayoutIndex } from "@src/layouts/Index";
 
 const NotFoundPage = () => (
-  <IndexLayout>
+  <LayoutIndex>
     <Page>
       <Container>
         <h1>404: Page not found.</h1>
@@ -15,7 +15,7 @@ const NotFoundPage = () => (
         </p>
       </Container>
     </Page>
-  </IndexLayout>
+  </LayoutIndex>
 );
 
 export default NotFoundPage;
