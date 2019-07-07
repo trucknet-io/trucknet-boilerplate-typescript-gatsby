@@ -1,7 +1,7 @@
-import { Link } from "gatsby";
 import React from "react";
 
 import { Container } from "@src/components/Container";
+import { TrucknetLogo } from "@src/components/TrucknetLogo";
 
 export type HeaderProps = {
   title: string;
@@ -13,7 +13,7 @@ export class Header extends React.PureComponent<HeaderProps> {
     return (
       <header>
         <Container>
-          <Link to="/">{title}</Link>
+          <TrucknetLogo>{title}</TrucknetLogo>
         </Container>
       </header>
     );

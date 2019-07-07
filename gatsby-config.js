@@ -1,5 +1,7 @@
 "use strict";
 
+const path = require("path");
+
 module.exports = {
   siteMetadata: {
     title: "trucknet-boilerplate-typescript-gatsby",
@@ -12,7 +14,14 @@ module.exports = {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "content",
-        path: `${__dirname}/src/content`,
+        path: path.join(__dirname, "src", "content"),
+      },
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "images",
+        path: path.join(__dirname, "src", "images"),
       },
     },
     {

@@ -20,7 +20,7 @@ export class LayoutIndex extends React.PureComponent {
     return (
       <StaticQuery
         query={graphql`
-          query IndexLayoutQuery {
+          query LayoutIndexQuery {
             site {
               siteMetadata {
                 title
