@@ -1,5 +1,5 @@
 import { graphql, Link, StaticQuery } from "gatsby";
-import Img from "gatsby-image";
+import GatsbyImage from "gatsby-image";
 import React from "react";
 
 import { GatsbyQueriedImage } from "@src/types";
@@ -32,7 +32,7 @@ class TrucknetLogo extends React.PureComponent<TrucknetLogoProps> {
     const { children, className } = this.props;
     return (
       <Link className={className} to="/">
-        <Img fluid={data.trucknetLogo.childImageSharp.fluid} />
+        <GatsbyImage fluid={data.trucknetLogo.childImageSharp.fluid} />
         {children}
       </Link>
     );

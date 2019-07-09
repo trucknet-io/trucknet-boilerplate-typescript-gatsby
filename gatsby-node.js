@@ -13,7 +13,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
   switch (node.internal.type) {
     case "MarkdownRemark": {
-      const { permalink, layout } = node.frontmatter;
+      const { permalink, templateKey } = node.frontmatter;
       const { relativePath } = getNode(node.parent);
 
       let slug = permalink;
@@ -29,11 +29,11 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         value: slug || "",
       });
 
-      // Used to determine a page layout.
+      // Used to determine a page template.
       createNodeField({
         node,
-        name: "layout",
-        value: layout || "",
+        name: "templateKey",
+        value: templateKey || "",
       });
     }
   }
@@ -48,7 +48,7 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             fields {
-              layout
+              templateKey
               slug
             }
           }
@@ -63,20 +63,20 @@ exports.createPages = async ({ graphql, actions }) => {
   }
 
   allMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
-    const { slug, layout } = node.fields;
+    const { slug, templateKey } = node.fields;
 
     createPage({
       path: slug,
       // This will automatically resolve the template to a corresponding
-      // `layout` frontmatter in the Markdown.
+      // `templateKey` frontmatter in the Markdown.
       //
-      // Feel free to set any `layout` as you'd like in the frontmatter, as
+      // Feel free to set any `templateKey` as you'd like in the frontmatter, as
       // long as the corresponding template file exists in src/templates.
       // If no template is set, it will fall back to the default `page`
       // template.
       //
       // Note that the template has to exist first, or else the build will fail.
-      component: path.resolve(`./src/templates/${layout || "page"}.tsx`),
+      component: path.resolve(`./src/templates/${templateKey}/index.ts`),
       context: {
         // Data passed to context is available in page queries as GraphQL variables.
         slug,

@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const proxy = require("http-proxy-middleware");
 
 module.exports = {
   siteMetadata: {
@@ -11,10 +12,12 @@ module.exports = {
   },
   plugins: [
     {
+      //
+      // Keep as first gatsby-source-filesystem plugin for gatsby image support
       resolve: "gatsby-source-filesystem",
       options: {
-        name: "content",
-        path: path.join(__dirname, "src", "content"),
+        path: path.join(__dirname, "static", "media"),
+        name: "uploads",
       },
     },
     {
@@ -25,9 +28,22 @@ module.exports = {
       },
     },
     {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "content",
+        path: path.join(__dirname, "src", "content"),
+      },
+    },
+    {
       resolve: "gatsby-transformer-remark",
       options: {
         plugins: [
+          {
+            resolve: "gatsby-remark-relative-images",
+            options: {
+              name: "uploads",
+            },
+          },
           {
             resolve: "gatsby-remark-responsive-iframe",
             options: {
@@ -35,7 +51,12 @@ module.exports = {
             },
           },
           "gatsby-remark-prismjs",
-          "gatsby-remark-copy-linked-files",
+          {
+            resolve: "gatsby-remark-copy-linked-files",
+            options: {
+              destinationDir: "static",
+            },
+          },
           "gatsby-remark-smartypants",
           {
             resolve: "gatsby-remark-images",
@@ -61,5 +82,25 @@ module.exports = {
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-material-ui",
     "gatsby-plugin-catch-links",
+    {
+      resolve: "gatsby-plugin-netlify-cms",
+      options: {
+        modulePath: `${__dirname}/src/cms/cms.ts`,
+      },
+    },
+    "gatsby-plugin-netlify",
   ],
+  // for avoiding CORS while developing Netlify Functions locally
+  // read more: https://www.gatsbyjs.org/docs/api-proxy/#advanced-proxying
+  developMiddleware: (app) => {
+    app.use(
+      "/.netlify/functions/",
+      proxy({
+        target: "http://localhost:9000",
+        pathRewrite: {
+          "/.netlify/functions/": "",
+        },
+      }),
+    );
+  },
 };

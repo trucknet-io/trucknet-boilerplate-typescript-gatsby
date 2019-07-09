@@ -1,6 +1,6 @@
 ---
-layout: MarkdownPage
-title: 'Example Markdown page'
+templateKey: AboutPage
+title: "ABOUT: Example Markdown page"
 ---
 
 ## Now we're writing in Markdown! Pretty nice, huh?
