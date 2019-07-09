@@ -1,1 +1,1 @@
-export * from "./TrucknetLogo";
+export { default, TrucknetLogoProps } from "./TrucknetLogo";

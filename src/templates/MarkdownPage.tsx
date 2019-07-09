@@ -1,9 +1,9 @@
 import { graphql } from "gatsby";
 import React from "react";
 
-import { Container } from "@src/components/Container";
-import { Page } from "@src/components/Page";
-import { LayoutIndex } from "@src/layouts/Index";
+import Container from "@src/components/Container";
+import Page from "@src/components/Page";
+import IndexLayout from "@src/layouts/IndexLayout";
 
 export type MarkdownPageProps = {
   data: {
@@ -27,7 +27,7 @@ class MarkdownPage extends React.PureComponent<MarkdownPageProps> {
   public render() {
     const { data } = this.props;
     return (
-      <LayoutIndex>
+      <IndexLayout>
         <Page>
           <Container>
             <h1>{data.markdownRemark.frontmatter.title}</h1>
@@ -37,7 +37,7 @@ class MarkdownPage extends React.PureComponent<MarkdownPageProps> {
             />
           </Container>
         </Page>
-      </LayoutIndex>
+      </IndexLayout>
     );
   }
 }

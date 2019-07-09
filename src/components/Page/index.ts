@@ -1,1 +1,1 @@
-export * from "./Page";
+export { default, PageProps } from "./Page";

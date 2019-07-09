@@ -12,6 +12,7 @@
     "noUnusedParameters": true,
     "removeComments": false,
     "preserveConstEnums": true,
+    "resolveJsonModule": true,
     "moduleResolution": "node",
     "typeRoots": ["node_modules/@types", "./@types"],
     "baseUrl": "./",

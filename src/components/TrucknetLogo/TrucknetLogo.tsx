@@ -8,7 +8,7 @@ export type TrucknetLogoProps = {
   className?: string;
 };
 
-export class TrucknetLogo extends React.PureComponent<TrucknetLogoProps> {
+class TrucknetLogo extends React.PureComponent<TrucknetLogoProps> {
   public render() {
     return (
       <StaticQuery
@@ -38,3 +38,5 @@ export class TrucknetLogo extends React.PureComponent<TrucknetLogoProps> {
     );
   };
 }
+
+export default TrucknetLogo;

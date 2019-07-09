@@ -1,12 +1,14 @@
 import React from "react";
 
-export type LayoutMainProps = {
+export type MainLayoutProps = {
   className?: string;
 };
 
-export class LayoutMain extends React.PureComponent<LayoutMainProps> {
+class MainLayout extends React.PureComponent<MainLayoutProps> {
   public render() {
     const { children, className } = this.props;
     return <main className={className}>{children}</main>;
   }
 }
+
+export default MainLayout;

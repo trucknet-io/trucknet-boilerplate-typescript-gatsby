@@ -1,12 +1,12 @@
 import { Link } from "gatsby";
 import React from "react";
 
-import { Container } from "@src/components/Container";
-import { Page } from "@src/components/Page";
-import { LayoutIndex } from "@src/layouts/Index";
+import Container from "@src/components/Container";
+import Page from "@src/components/Page";
+import IndexLayout from "@src/layouts/IndexLayout";
 
 const PageTwo = () => (
-  <LayoutIndex>
+  <IndexLayout>
     <Page>
       <Container>
         <h1>Hi from the second page</h1>
@@ -21,7 +21,7 @@ const PageTwo = () => (
         </ul>
       </Container>
     </Page>
-  </LayoutIndex>
+  </IndexLayout>
 );
 
 export default PageTwo;

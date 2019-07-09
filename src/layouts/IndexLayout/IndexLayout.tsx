@@ -2,9 +2,9 @@ import { graphql, StaticQuery } from "gatsby";
 import React from "react";
 import Helmet from "react-helmet";
 
-import { Header } from "@src/components/Header";
-import { LayoutMain } from "@src/layouts/Main";
-import { LayoutRoot } from "@src/layouts/Root";
+import Header from "@src/components/Header";
+import MainLayout from "@src/layouts/MainLayout";
+import RootLayout from "@src/layouts/RootLayout";
 
 export type StaticQueryProps = {
   site: {
@@ -15,7 +15,7 @@ export type StaticQueryProps = {
   };
 };
 
-export class LayoutIndex extends React.PureComponent {
+class IndexLayout extends React.PureComponent {
   public render() {
     return (
       <StaticQuery
@@ -37,7 +37,7 @@ export class LayoutIndex extends React.PureComponent {
   private renderStaticQuery = (data: StaticQueryProps) => {
     const { children } = this.props;
     return (
-      <LayoutRoot>
+      <RootLayout>
         <Helmet
           title={data.site.siteMetadata.title}
           meta={[
@@ -51,9 +51,10 @@ export class LayoutIndex extends React.PureComponent {
             },
           ]}
         />
-        <Header title={data.site.siteMetadata.title} />
-        <LayoutMain>{children}</LayoutMain>
-      </LayoutRoot>
+        <Header />
+        <MainLayout>{children}</MainLayout>
+      </RootLayout>
     );
   };
 }
+export default IndexLayout;
