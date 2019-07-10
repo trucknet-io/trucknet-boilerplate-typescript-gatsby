@@ -3,7 +3,7 @@
   "description": "A starter kit for TypeScript-based Gatsby projects with i18n and Netlify CMS.",
   "version": "0.0.0",
   "private": true,
-  "author": "Alexander Gusev <goooseman@me.com>",
+  "author": "Alex Zinkevych <alexdarkmm@gmail.com>",
   "keywords": [
     "gatsby",
     "trucknet",

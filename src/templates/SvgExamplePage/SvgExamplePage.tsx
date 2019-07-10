@@ -5,14 +5,18 @@ import Page from "@src/components/Page";
 import SvgRender from "@src/components/SvgRender";
 import IndexLayout from "@src/layouts/IndexLayout";
 
-const SvgExamplePage = () => (
-  <IndexLayout>
-    <Page>
-      <Container>
-        <SvgRender />
-      </Container>
-    </Page>
-  </IndexLayout>
-);
+class SvgExamplePage extends React.Component {
+  public render() {
+    return (
+      <IndexLayout>
+        <Page>
+          <Container>
+            <SvgRender />
+          </Container>
+        </Page>
+      </IndexLayout>
+    );
+  }
+}
 
 export default SvgExamplePage;

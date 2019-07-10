@@ -28,11 +28,11 @@ class Header extends React.PureComponent<HeaderProps> {
           <ButtonLink to="/" color="inherit">
             Hello
           </ButtonLink>
-          <ButtonLink to="/clock" color="inherit">
-            Clock
-          </ButtonLink>
-          <ButtonLink to="/svg" color="inherit">
+          <ButtonLink to="/svg-example" color="inherit">
             SVG
+          </ButtonLink>
+          <ButtonLink to="/some-path" color="inherit">
+            Not Found
           </ButtonLink>
           <LocaleSwitcher />
         </Toolbar>

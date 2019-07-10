@@ -1,4 +1,4 @@
-var version = require("../../package.json").version;
+var version = require("../../../package.json").version;
 
 var SENTRY_ENV = process.env.SENTRY_ENV;
 var SENTRY_DSN = process.env.SENTRY_DSN;

@@ -1,10 +1,6 @@
 "use strict";
 
 const path = require("path");
-const webpack = require("webpack");
-const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
-
-const errorReportingPlugin = require("./config/errorReporting/webpack");
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
@@ -85,25 +81,5 @@ exports.createPages = async ({ graphql, actions }) => {
         slug,
       },
     });
-  });
-};
-
-exports.onCreateWebpackConfig = ({ actions }) => {
-  actions.setWebpackConfig({
-    entry: {
-      errorReporting: "./config/errorReporting/frontend.js",
-    },
-    resolve: {
-      plugins: [new TsconfigPathsPlugin()],
-    },
-    plugins: [
-      new webpack.EnvironmentPlugin({
-        // null for not required variables
-        // undefined - for required
-        SENTRY_DSN: null,
-        SENTRY_ENV: null,
-      }),
-      errorReportingPlugin,
-    ],
   });
 };
