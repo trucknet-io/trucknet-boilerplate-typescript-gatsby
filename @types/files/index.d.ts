@@ -87,3 +87,8 @@ declare module "*.oga" {
   const path: string;
   export default path;
 }
+
+declare module "*.md" {
+  const html: string;
+  export default html;
+}

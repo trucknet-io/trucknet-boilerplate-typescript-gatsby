@@ -8,6 +8,7 @@ static/admin/*.bundle.*
 
 # Gatsby cache
 .cache/
+.awcache
 
 # Logs
 logs

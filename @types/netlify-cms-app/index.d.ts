@@ -3,9 +3,9 @@ declare module "netlify-cms-app" {
   import React from "react";
 
   export type PreviewTemplateProps = {
-    collection: Map<string, string | number | Object | undefined>;
-    entry: Map<string, string | number | Object | undefined>;
-    fields: List<string | number | Object | undefined>;
+    collection: Map<string, unknown>;
+    entry: Map<string, unknown>;
+    fields: List<unknown>;
     getAsset(name: string): string;
     widgetFor(name: string): React.ReactNode;
   };
