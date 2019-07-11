@@ -1,5 +1,4 @@
-import { Button } from "@material-ui/core";
-import { ButtonProps } from "@material-ui/core/Button";
+import Button, { ButtonProps } from "@material-ui/core/Button";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { GatsbyLinkProps, Link } from "gatsby";
 import * as React from "react";
@@ -7,33 +6,28 @@ import * as React from "react";
 import { styles } from "./ButtonLink.styles";
 
 export type ButtonLinkProps = WithStyles<typeof styles> &
-  Omit<ButtonProps, "classes"> & {
+  ButtonProps &
+  GatsbyLinkProps<{}> & {
     partiallyActive?: boolean;
     replace?: boolean;
     to: string;
   };
 
-const createLink = (linkProps: GatsbyLinkProps<{}>) => ({
-  innerRef,
-  ...restProps
-}: ButtonProps) => {
-  // Remove `innerRef` from properties as the interface
-  // is incompatible. The property `innerRef` should not be
-  // needed as the `ListItem` component already provides that
-  // feature with a different interface.
-  // @ts-ignore
-  return <Link {...linkProps} {...restProps} />;
-};
+const LinkComponent = React.forwardRef<
+  HTMLAnchorElement,
+  Omit<GatsbyLinkProps<{}>, "ref">
+>(({ innerRef, ...props }, ref) => (
+  <Link innerRef={ref as Function} {...props} />
+));
 
 class ButtonLink extends React.PureComponent<ButtonLinkProps> {
   public render() {
-    const { classes, to, ...props } = this.props;
+    const { classes, innerRef, ...props } = this.props;
     return (
+      // @ts-ignore https://github.com/mui-org/material-ui/issues/15827#issuecomment-510422878
       <Button
-        component={createLink({
-          to,
-          activeClassName: classes.active,
-        })}
+        component={LinkComponent}
+        activeClassName={classes.active}
         {...props}>
         {this.props.children}
       </Button>

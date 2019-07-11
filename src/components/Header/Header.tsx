@@ -5,6 +5,7 @@ import * as React from "react";
 
 import ButtonLink from "@src/components/ButtonLink";
 import LocaleSwitcher from "@src/components/LocaleSwitcher";
+import TrucknetLogo from "@src/components/TrucknetLogo";
 
 const styles = {
   title: {
@@ -22,16 +23,17 @@ class Header extends React.PureComponent<HeaderProps> {
     return (
       <AppBar position="static" color="default">
         <Toolbar>
+          <TrucknetLogo />
           <Typography className={classes.title} variant="h6" color="inherit">
             <T context="header.title" message="Some name" />
           </Typography>
-          <ButtonLink to="/" color="inherit">
-            Hello
+          <ButtonLink to="/about" color="inherit">
+            About
           </ButtonLink>
           <ButtonLink to="/svg-example" color="inherit">
             SVG
           </ButtonLink>
-          <ButtonLink to="/some-path" color="inherit">
+          <ButtonLink to="/404" color="inherit">
             Not Found
           </ButtonLink>
           <LocaleSwitcher />

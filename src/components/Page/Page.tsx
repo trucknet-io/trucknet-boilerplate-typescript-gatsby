@@ -1,3 +1,4 @@
+import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import React from "react";
 
@@ -9,11 +10,19 @@ class Page extends React.PureComponent<PageProps> {
   public render() {
     const { children, className } = this.props;
     return (
-      <Grid className={className} container spacing={3}>
-        <Grid item xs={12} sm={12}>
-          {children}
+      <Container>
+        <Grid
+          className={className}
+          container
+          spacing={3}
+          direction="row"
+          justify="center"
+          alignItems="center">
+          <Grid item xs={10} sm={12}>
+            {children}
+          </Grid>
         </Grid>
-      </Grid>
+      </Container>
     );
   }
 }

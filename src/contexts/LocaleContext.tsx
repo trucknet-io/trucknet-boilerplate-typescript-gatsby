@@ -18,12 +18,17 @@ const { Provider, Consumer } = React.createContext<WithLocale>({
 export class LocaleContextProvider extends React.Component<{}, WithLocale> {
   constructor(props: {}) {
     super(props);
-    const defaultLocale = this.getDefaultLocale();
     this.state = {
+      ...this.getStateForLocale("en-GB"),
       changeLocale: this.changeLocale,
-      ...this.getStateForLocale(defaultLocale),
     };
-    this.handleLocaleChanged(defaultLocale);
+  }
+
+  public componentDidMount() {
+    // DOM API (such as `window`) must be accessed only after
+    // component has been mounted
+    const defaultLocale = this.getDefaultLocale();
+    this.changeLocale(defaultLocale);
   }
 
   public render() {

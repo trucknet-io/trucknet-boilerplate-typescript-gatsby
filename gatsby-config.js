@@ -12,7 +12,6 @@ module.exports = {
   },
   plugins: [
     {
-      //
       // Keep as first gatsby-source-filesystem plugin for gatsby image support
       resolve: "gatsby-source-filesystem",
       options: {
@@ -23,8 +22,8 @@ module.exports = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        name: "images",
-        path: path.join(__dirname, "src/images"),
+        name: "assets",
+        path: path.join(__dirname, "src/assets"),
       },
     },
     {
@@ -32,6 +31,14 @@ module.exports = {
       options: {
         name: "content",
         path: path.join(__dirname, "src/content"),
+      },
+    },
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /\.svg$/,
+        },
       },
     },
     {

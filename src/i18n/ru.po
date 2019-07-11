@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Wed Jul 10 2019 14:09:20 GMT+0300 (Israel Daylight Time)\n"
+"POT-Creation-Date: Thu Jul 11 2019 15:01:34 GMT+0300 (Israel Daylight Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
@@ -13,17 +13,17 @@ msgstr ""
 "Last-Translator: \n"
 "Language: ru\n"
 
-#: src/components/Header/Header.tsx:26
+#: src/components/Header/Header.tsx:28
 msgctxt "header.title"
 msgid "Some name"
 msgstr "Какое-то название"
 
-#: src/components/SvgRender/SvgRender.tsx:59
+#: src/components/SvgRender/SvgRender.tsx:58
 msgctxt "svg.title"
 msgid "This is Rick from SVG universe!"
 msgstr "Это Славик из вселенной SVG!"
 
-#: src/components/SvgRender/SvgRender.tsx:71
+#: src/components/SvgRender/SvgRender.tsx:70
 msgctxt "svg.changeColor"
 msgid "Change color!"
 msgstr "Цвет мне запили!"

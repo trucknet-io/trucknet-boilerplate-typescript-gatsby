@@ -1,4 +1,3 @@
-import { graphql } from "gatsby";
 import React from "react";
 
 import IndexLayout from "@src/layouts/IndexLayout";
@@ -31,14 +30,3 @@ class AboutPage extends React.PureComponent<AboutPageProps> {
 }
 
 export default AboutPage;
-
-export const query = graphql`
-  query AboutPageQuery($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      html
-      frontmatter {
-        title
-      }
-    }
-  }
-`;

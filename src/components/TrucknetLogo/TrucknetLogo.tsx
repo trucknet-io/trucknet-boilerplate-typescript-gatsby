@@ -1,10 +1,12 @@
+import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { graphql, Link, StaticQuery } from "gatsby";
 import GatsbyImage from "gatsby-image";
 import React from "react";
 
 import { GatsbyQueriedImage } from "@src/types";
+import { styles } from "./TrucknetLogo.styles";
 
-export type TrucknetLogoProps = {
+export type TrucknetLogoProps = WithStyles<typeof styles> & {
   className?: string;
 };
 
@@ -14,7 +16,9 @@ class TrucknetLogo extends React.PureComponent<TrucknetLogoProps> {
       <StaticQuery
         query={graphql`
           query {
-            trucknetLogo: file(relativePath: { eq: "trucknet_logo.jpeg" }) {
+            trucknetLogo: file(
+              relativePath: { eq: "images/trucknet_logo.jpeg" }
+            ) {
               childImageSharp {
                 fluid(maxWidth: 200) {
                   ...GatsbyImageSharpFluid
@@ -29,14 +33,17 @@ class TrucknetLogo extends React.PureComponent<TrucknetLogoProps> {
   }
 
   private renderImage = (data: { trucknetLogo: GatsbyQueriedImage }) => {
-    const { children, className } = this.props;
+    const { children, classes, className } = this.props;
     return (
       <Link className={className} to="/">
-        <GatsbyImage fluid={data.trucknetLogo.childImageSharp.fluid} />
+        <GatsbyImage
+          className={classes.image}
+          fluid={data.trucknetLogo.childImageSharp.fluid}
+        />
         {children}
       </Link>
     );
   };
 }
 
-export default TrucknetLogo;
+export default withStyles(styles)(TrucknetLogo);

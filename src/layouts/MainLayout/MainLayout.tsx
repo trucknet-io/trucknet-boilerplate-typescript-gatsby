@@ -1,14 +1,15 @@
+import { withStyles, WithStyles } from "@material-ui/core/styles";
 import React from "react";
 
-export type MainLayoutProps = {
-  className?: string;
-};
+import { styles } from "./MainLayout.styles";
+
+export type MainLayoutProps = WithStyles<typeof styles> & {};
 
 class MainLayout extends React.PureComponent<MainLayoutProps> {
   public render() {
-    const { children, className } = this.props;
-    return <main className={className}>{children}</main>;
+    const { children, classes } = this.props;
+    return <main className={classes.main}>{children}</main>;
   }
 }
 
-export default MainLayout;
+export default withStyles(styles)(MainLayout);

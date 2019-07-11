@@ -10,9 +10,8 @@ import {
 } from "@material-ui/core";
 import { T } from "lioness";
 import * as React from "react";
-import ReactSVG from "react-svg";
 
-import rickSvg from "./rick.svg";
+import RickSvg from "./rick.svg";
 import { styles } from "./SvgRender.styles";
 
 const colors = {
@@ -46,12 +45,12 @@ export class SvgRender extends React.PureComponent<Props, State> {
   public render() {
     const { classes } = this.props;
     const { color } = this.state;
+
     return (
       <Card className={classes.card}>
         <CardActionArea onClick={this.changeColor}>
-          <ReactSVG
+          <RickSvg
             className={classes.svg}
-            src={rickSvg}
             style={{ fill: this.getColorValue(color) }}
           />
           <CardContent>
