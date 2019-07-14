@@ -5,7 +5,7 @@ import "@storybook/addon-console";
 import { addParameters } from "@storybook/react";
 import { withI18n } from "storybook-addon-i18n";
 
-import { supportedLocales } from "@src/config/locales";
+import { SUPPORTED_LOCALES } from "@src/config/locales";
 import { MuiLocaleProvider } from "@src/layouts/RootLayout";
 import messages from "@src/i18n/translations.json";
 
@@ -39,7 +39,7 @@ addParameters({
     providerProps: {
       messages,
     },
-    supportedLocales,
+    SUPPORTED_LOCALES,
   },
 });
 

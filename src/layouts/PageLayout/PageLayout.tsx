@@ -2,11 +2,11 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import React from "react";
 
-export type PageProps = {
+export type PageLayoutProps = {
   className?: string;
 };
 
-class Page extends React.PureComponent<PageProps> {
+class PageLayout extends React.PureComponent<PageLayoutProps> {
   public render() {
     const { children, className } = this.props;
     return (
@@ -27,4 +27,4 @@ class Page extends React.PureComponent<PageProps> {
   }
 }
 
-export default Page;
+export default PageLayout;

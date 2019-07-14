@@ -1,21 +1,24 @@
-import { Link } from "gatsby";
 import React from "react";
 
 import Clock from "@src/components/Clock";
-import Page from "@src/components/Page";
+import LocalizedLink from "@src/components/LocalizedLink";
 import IndexLayout from "@src/layouts/IndexLayout";
+import PageLayout from "@src/layouts/PageLayout";
+import { PageProps } from "@src/types";
 
-class IndexPage extends React.Component {
+export type IndexPageProps = PageProps & {};
+
+class IndexPage extends React.Component<IndexPageProps> {
   public render() {
     return (
-      <IndexLayout>
-        <Page>
+      <IndexLayout {...this.props}>
+        <PageLayout>
           <h1>Hi people</h1>
           <p>Welcome to your new Gatsby site.</p>
           <p>Now go build something great.</p>
           <Clock />
-          <Link to="/svg-example/">Show me SVG example</Link>
-        </Page>
+          <LocalizedLink to="/svg-example">Show me SVG example</LocalizedLink>
+        </PageLayout>
       </IndexLayout>
     );
   }

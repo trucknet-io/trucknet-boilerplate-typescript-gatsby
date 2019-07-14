@@ -1,19 +1,22 @@
-import { Link } from "gatsby";
 import React from "react";
 
-import Page from "@src/components/Page";
+import LocalizedLink from "@src/components/LocalizedLink";
 import IndexLayout from "@src/layouts/IndexLayout";
+import PageLayout from "@src/layouts/PageLayout";
+import { PageProps } from "@src/types";
 
-class NotFoundPage extends React.Component {
+export type NotFoundPageProps = PageProps & {};
+
+class NotFoundPage extends React.Component<NotFoundPageProps> {
   public render() {
     return (
-      <IndexLayout>
-        <Page>
+      <IndexLayout {...this.props}>
+        <PageLayout>
           <h1>404: Page not found.</h1>
           <p>
-            You've hit the void. <Link to="/">Go back.</Link>
+            You've hit the void. <LocalizedLink to="/">Go back.</LocalizedLink>
           </p>
-        </Page>
+        </PageLayout>
       </IndexLayout>
     );
   }

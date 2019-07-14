@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const { SUPPORTED_LOCALES } = require("./src/config/locales_fix");
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
@@ -39,8 +40,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 };
 
 exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions;
-
   const allMarkdown = await graphql(`
     {
       allMarkdownRemark(limit: 1000) {
@@ -63,8 +62,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   allMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
     const { slug, templateKey } = node.fields;
-
-    createPage({
+    const page = {
       path: slug,
       // This will automatically resolve the template to a corresponding
       // `templateKey` frontmatter in the Markdown.
@@ -80,6 +78,35 @@ exports.createPages = async ({ graphql, actions }) => {
         // Data passed to context is available in page queries as GraphQL variables.
         slug,
       },
-    });
+    };
+
+    createLocalizedPages(page, actions);
   });
 };
+
+exports.onCreatePage = ({ page, actions }) => {
+  if (page.path !== "/") {
+    // Deleting original page causes bug: pages not loading at all
+    // and out of memory exception occurs after some time.
+    // The aim was to delete original `trucknet.io/about` page
+    // and create localized pages instead such as `trucknet.io/fr/about`.
+    // actions.deletePage(page);
+  }
+
+  createLocalizedPages(page, actions);
+};
+
+function createLocalizedPages(page, actions) {
+  const { createPage } = actions;
+
+  SUPPORTED_LOCALES.forEach((locale) => {
+    createPage({
+      ...page,
+      path: `/${locale}${page.path}`,
+      context: {
+        ...page.context,
+        initialLocale: locale,
+      },
+    });
+  });
+}
