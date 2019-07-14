@@ -1,7 +1,7 @@
 import React from "react";
 
 import CmsContent from "@src/components/CmsContent";
-import Page from "@src/components/Page";
+import PageLayout from "@src/layouts/PageLayout";
 
 export type AboutTemplateProps = {
   content: React.ReactNode;
@@ -12,10 +12,10 @@ class AboutTemplate extends React.PureComponent<AboutTemplateProps> {
   public render() {
     const { content, title } = this.props;
     return (
-      <Page>
+      <PageLayout>
         <h1>{title}</h1>
         <CmsContent content={content} />
-      </Page>
+      </PageLayout>
     );
   }
 }

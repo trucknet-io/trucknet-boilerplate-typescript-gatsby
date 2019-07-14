@@ -2,9 +2,13 @@ import { render } from "@testing-library/react";
 import { LionessProvider } from "lioness";
 import * as React from "react";
 
+import { DEFAULT_LOCALE } from "@src/config/locales";
 import translationsJson from "@src/i18n/translations.json";
 
-const renderWithIntl = (ui: React.ReactElement, { locale = "en-GB" } = {}) => {
+const renderWithIntl = (
+  ui: React.ReactElement,
+  { locale = DEFAULT_LOCALE.code } = {},
+) => {
   return {
     ...render(
       <LionessProvider locale={locale} messages={translationsJson}>

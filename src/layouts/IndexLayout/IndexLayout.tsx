@@ -5,6 +5,7 @@ import Helmet from "react-helmet";
 import Header from "@src/components/Header";
 import MainLayout from "@src/layouts/MainLayout";
 import RootLayout from "@src/layouts/RootLayout";
+import { PageProps } from "@src/types";
 
 export type StaticQueryProps = {
   site: {
@@ -15,7 +16,9 @@ export type StaticQueryProps = {
   };
 };
 
-class IndexLayout extends React.PureComponent {
+export type IndexLayoutProps = PageProps & {};
+
+class IndexLayout extends React.PureComponent<IndexLayoutProps> {
   public render() {
     return (
       <StaticQuery
@@ -35,9 +38,9 @@ class IndexLayout extends React.PureComponent {
   }
 
   private renderStaticQuery = (data: StaticQueryProps) => {
-    const { children } = this.props;
+    const { children, pageContext, path } = this.props;
     return (
-      <RootLayout>
+      <RootLayout initialLocale={pageContext.initialLocale} path={path}>
         <Helmet
           title={data.site.siteMetadata.title}
           meta={[

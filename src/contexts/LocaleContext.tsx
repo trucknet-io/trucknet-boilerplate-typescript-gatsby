@@ -1,59 +1,87 @@
+import { navigate } from "gatsby";
 import * as React from "react";
 
-import locales, { supportedLocales } from "@src/config/locales";
+import {
+  DEFAULT_LOCALE,
+  LocaleCode,
+  LocaleDirection,
+  LOCALES_MAP,
+  SUPPORTED_LOCALES,
+} from "@src/config/locales";
 import { findLocale } from "@src/utils/locale";
 
 export interface WithLocale {
-  locale: string;
-  direction: "ltr" | "rtl";
-  changeLocale(locale: string): void;
+  locale: LocaleCode;
+  direction: LocaleDirection;
+  changeLocale(locale: LocaleCode): void;
 }
 
+export type LocaleProps = {
+  path: string;
+  initialLocale: LocaleCode;
+};
+
 const { Provider, Consumer } = React.createContext<WithLocale>({
-  locale: "en-GB",
-  direction: "ltr",
-  changeLocale: (locale: string) => locale,
+  locale: DEFAULT_LOCALE.code,
+  direction: DEFAULT_LOCALE.direction || "ltr",
+  changeLocale: (locale: LocaleCode) => locale,
 });
 
-export class LocaleContextProvider extends React.Component<{}, WithLocale> {
-  constructor(props: {}) {
+export class LocaleContextProvider extends React.Component<
+  LocaleProps,
+  WithLocale
+> {
+  constructor(props: LocaleProps) {
     super(props);
+
+    if (!props.initialLocale) {
+      const defaultLocale = this.getDefaultLocaleCode();
+      navigate(`/${defaultLocale}${props.path}`, { replace: true });
+      return;
+    }
+
     this.state = {
-      ...this.getStateForLocale("en-GB"),
+      ...this.getStateForLocale(props.initialLocale),
       changeLocale: this.changeLocale,
     };
   }
 
-  public componentDidMount() {
-    // DOM API (such as `window`) must be accessed only after
-    // component has been mounted
-    const defaultLocale = this.getDefaultLocale();
-    this.changeLocale(defaultLocale);
-  }
-
   public render() {
+    if (!this.props.initialLocale) {
+      return null;
+    }
     return <Provider value={this.state}>{this.props.children}</Provider>;
   }
 
-  private getDefaultLocale = () => {
+  private getDefaultLocaleCode = (): LocaleCode => {
     if (window.navigator.language) {
-      return findLocale(supportedLocales, window.navigator.language);
+      try {
+        return findLocale(SUPPORTED_LOCALES, window.navigator
+          .language as LocaleCode);
+      } catch (_) {
+        return DEFAULT_LOCALE.code;
+      }
     }
-    return Object.keys(locales)[0];
+    return DEFAULT_LOCALE.code;
   };
 
-  private changeBodyDir = (locale: string) =>
-    (document.body.dir = this.getDirection(locale));
+  private changeBodyDir = (localeCode: LocaleCode) =>
+    (document.body.dir = this.getDirection(localeCode));
 
-  private getDirection = (locale: string): "rtl" | "ltr" =>
-    locale === "he" ? "rtl" : "ltr";
-
-  private changeLocale = (locale: string) => {
-    this.setState(this.getStateForLocale(locale));
-    this.handleLocaleChanged(locale);
+  private getDirection = (localeCode: LocaleCode): LocaleDirection => {
+    const locale = LOCALES_MAP[localeCode] || DEFAULT_LOCALE;
+    return locale.direction || "ltr";
   };
 
-  private getStateForLocale = (locale: string) => {
+  private changeLocale = (localeCode: LocaleCode) => {
+    if (localeCode === this.state.locale) {
+      return;
+    }
+    this.setState(this.getStateForLocale(localeCode));
+    this.handleLocaleChanged(localeCode);
+  };
+
+  private getStateForLocale = (locale: LocaleCode) => {
     const direction = this.getDirection(locale);
     return {
       locale,
@@ -61,15 +89,12 @@ export class LocaleContextProvider extends React.Component<{}, WithLocale> {
     };
   };
 
-  private handleLocaleChanged = (locale: string) => {
-    this.changeBodyDir(locale);
+  private handleLocaleChanged = (localeCode: LocaleCode) => {
+    this.changeBodyDir(localeCode);
   };
 }
 
-export const withLocale = <
-  P extends WithLocale,
-  R = Pick<P, Exclude<keyof P, keyof WithLocale>>
->(
+export const withLocale = <P extends WithLocale, R = Omit<P, keyof WithLocale>>(
   Component: React.ComponentType<P>,
 ): React.SFC<R> => {
   return (props: R) => {

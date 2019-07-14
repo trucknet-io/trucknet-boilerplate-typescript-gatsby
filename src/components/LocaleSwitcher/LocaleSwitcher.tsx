@@ -1,9 +1,11 @@
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import Language from "@material-ui/icons/Language";
+import { navigate } from "gatsby";
 import * as React from "react";
 
-import locales, { Locale } from "@src/config/locales";
+import { Locale, LOCALES } from "@src/config/locales";
 import { WithLocale, withLocale } from "@src/contexts/LocaleContext";
+import { changeLocaleInPath } from "@src/utils/locale";
 
 export type LocaleSwitcherProps = WithLocale & {};
 
@@ -39,16 +41,17 @@ class LocaleSwitcher extends React.Component<WithLocale, LocaleSwitcherState> {
           }}
           open={open}
           onClose={this.handleClose}>
-          {locales.map(this.renderLocaleMenuItem)}
+          {LOCALES.map(this.renderLocaleMenuItem)}
         </Menu>
       </div>
     );
   }
 
   private renderLocaleMenuItem = (l: Locale) => {
-    const { changeLocale, locale } = this.props;
+    const { locale } = this.props;
     const handleClick = () => {
-      changeLocale(l.code);
+      const path = changeLocaleInPath(window.location.pathname, l.code);
+      navigate(path);
       this.handleClose();
     };
     return (

@@ -1,16 +1,19 @@
 import React from "react";
 
-import Page from "@src/components/Page";
 import SvgRender from "@src/components/SvgRender";
 import IndexLayout from "@src/layouts/IndexLayout";
+import PageLayout from "@src/layouts/PageLayout";
+import { PageProps } from "@src/types";
 
-class SvgExamplePage extends React.Component {
+export type SvgExamplePageProps = PageProps & {};
+
+class SvgExamplePage extends React.Component<SvgExamplePageProps> {
   public render() {
     return (
-      <IndexLayout>
-        <Page>
+      <IndexLayout {...this.props}>
+        <PageLayout>
           <SvgRender />
-        </Page>
+        </PageLayout>
       </IndexLayout>
     );
   }
