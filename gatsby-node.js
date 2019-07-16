@@ -19,7 +19,10 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       let slug = permalink;
 
       if (!slug) {
-        slug = `/${relativePath.replace(".md", "")}/`;
+        const path = relativePath
+          .replace(/(\/|^)index\.md$/, "")
+          .replace(/\.md$/, "");
+        slug = `/${path}/`;
       }
 
       // Used to generate URL to view this content.

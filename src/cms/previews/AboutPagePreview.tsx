@@ -1,15 +1,15 @@
 import { PreviewTemplateProps } from "netlify-cms-app";
 import React from "react";
 
-import { AboutTemplate } from "@src/templates/AboutPage";
+import { MarkdownTemplate } from "@src/templates/MarkdownPage";
 
 class AboutPagePreview extends React.Component<PreviewTemplateProps> {
   public render() {
     const { entry, widgetFor } = this.props;
     return (
-      <AboutTemplate
+      <MarkdownTemplate
         title={entry.getIn(["data", "title"]) as string}
-        content={widgetFor("content")}
+        content={widgetFor("body")}
       />
     );
   }

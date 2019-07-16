@@ -3,9 +3,9 @@ import React from "react";
 import IndexLayout from "@src/layouts/IndexLayout";
 import { PageProps } from "@src/types";
 
-import AboutTemplate from "./AboutTemplate";
+import MarkdownTemplate from "./MarkdownTemplate";
 
-export type AboutPageProps = PageProps & {
+export type MarkdownPageProps = PageProps & {
   data: {
     markdownRemark: {
       html: string;
@@ -16,12 +16,12 @@ export type AboutPageProps = PageProps & {
   };
 };
 
-class AboutPage extends React.PureComponent<AboutPageProps> {
+class MarkdownPage extends React.PureComponent<MarkdownPageProps> {
   public render() {
     const { data, ...rest } = this.props;
     return (
       <IndexLayout {...rest}>
-        <AboutTemplate
+        <MarkdownTemplate
           content={data.markdownRemark.html}
           title={data.markdownRemark.frontmatter.title}
         />
@@ -30,4 +30,4 @@ class AboutPage extends React.PureComponent<AboutPageProps> {
   }
 }
 
-export default AboutPage;
+export default MarkdownPage;

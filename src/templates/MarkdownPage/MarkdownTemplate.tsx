@@ -3,12 +3,12 @@ import React from "react";
 import CmsContent from "@src/components/CmsContent";
 import PageLayout from "@src/layouts/PageLayout";
 
-export type AboutTemplateProps = {
+export type MarkdownTemplateProps = {
   content: React.ReactNode;
   title: string;
 };
 
-class AboutTemplate extends React.PureComponent<AboutTemplateProps> {
+class MarkdownTemplate extends React.PureComponent<MarkdownTemplateProps> {
   public render() {
     const { content, title } = this.props;
     return (
@@ -20,4 +20,4 @@ class AboutTemplate extends React.PureComponent<AboutTemplateProps> {
   }
 }
 
-export default AboutTemplate;
+export default MarkdownTemplate;
