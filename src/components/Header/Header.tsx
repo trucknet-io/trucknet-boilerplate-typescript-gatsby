@@ -28,13 +28,13 @@ class Header extends React.PureComponent<HeaderProps> {
             <T context="header.title" message="Some name" />
           </Typography>
           <ButtonLink to="/about" color="inherit">
-            About
+            <T context="header.about" message="About" />
           </ButtonLink>
           <ButtonLink to="/svg-example" color="inherit">
-            SVG
+            <T context="header.svg" message="SVG" />
           </ButtonLink>
           <ButtonLink to="/404" color="inherit">
-            Not Found
+            <T context="header.404" message="Not Found" />
           </ButtonLink>
           <LocaleSwitcher />
         </Toolbar>

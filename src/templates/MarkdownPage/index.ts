@@ -8,9 +8,10 @@ export { MarkdownPageProps };
 // ALWAYS keep non-static page queries in the index file (Gatsby requirement)!
 // Maybe there is a sense to move MarkdownPage component declaration to the index
 // file to keep component, props and query together...
-export const aboutPageQuery = graphql`
-  query MarkdownPageQuery($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+// Or to replace this with a StaticQuery
+export const markdownPageQuery = graphql`
+  query MarkdownPageQuery($slug: String!, $mdLocale: String!) {
+    markdownRemark(fields: { slug: { eq: $slug }, locale: { eq: $mdLocale } }) {
       html
       frontmatter {
         title

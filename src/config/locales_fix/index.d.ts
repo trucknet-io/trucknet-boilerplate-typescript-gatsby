@@ -1,4 +1,4 @@
-export type LocaleCode = "en-GB" | "ru" | "he";
+export type LocaleCode = "en" | "ru" | "he";
 
 export type LocaleDirection = "ltr" | "rtl";
 

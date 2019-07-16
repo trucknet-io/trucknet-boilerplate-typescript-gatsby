@@ -1,7 +1,10 @@
 "use strict";
 
 const path = require("path");
-const { SUPPORTED_LOCALES } = require("./src/config/locales_fix");
+const {
+  DEFAULT_LOCALE,
+  SUPPORTED_LOCALES,
+} = require("./src/config/locales_fix");
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
@@ -17,12 +20,21 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       const { relativePath } = getNode(node.parent);
 
       let slug = permalink;
+      let locale = DEFAULT_LOCALE.code;
 
       if (!slug) {
-        const path = relativePath
-          .replace(/(\/|^)index\.md$/, "")
-          .replace(/\.md$/, "");
-        slug = `/${path}/`;
+        slug = relativePath.replace(/\.md$/, "");
+
+        const localeMatch = slug.match(
+          new RegExp(`\.(${SUPPORTED_LOCALES.join("|")})$`),
+        );
+        if (localeMatch) {
+          locale = localeMatch[1];
+          slug = slug.replace(localeMatch[0], "");
+        }
+
+        slug = slug.replace(/(\/|^)index$/, "");
+        slug = `/${slug}/`;
       }
 
       // Used to generate URL to view this content.
@@ -38,6 +50,13 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         name: "templateKey",
         value: templateKey || "",
       });
+
+      // Used to set proper localized path
+      createNodeField({
+        node,
+        name: "locale",
+        value: locale,
+      });
     }
   }
 };
@@ -51,6 +70,7 @@ exports.createPages = async ({ graphql, actions }) => {
             fields {
               templateKey
               slug
+              locale
             }
           }
         }
@@ -63,8 +83,12 @@ exports.createPages = async ({ graphql, actions }) => {
     throw new Error(allMarkdown.errors);
   }
 
+  // Used to determine untranslated md files and create
+  // untranslated localized pages for them
+  const localizedPagesMap = {};
+
   allMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
-    const { slug, templateKey } = node.fields;
+    const { slug, templateKey, locale } = node.fields;
     const page = {
       path: slug,
       // This will automatically resolve the template to a corresponding
@@ -80,10 +104,27 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         // Data passed to context is available in page queries as GraphQL variables.
         slug,
+        mdLocale: locale,
       },
     };
 
-    createLocalizedPages(page, actions);
+    const localizedPage = getLocalizedPage(page, locale);
+    actions.createPage(localizedPage);
+
+    localizedPagesMap[slug] = localizedPagesMap[slug] || { page, locales: [] };
+    localizedPagesMap[slug].locales.push(locale);
+  });
+
+  Object.entries(localizedPagesMap).forEach(([slug, { page, locales }]) => {
+    const missingLocales = SUPPORTED_LOCALES.filter(
+      (locale) => !locales.includes(locale),
+    );
+    console.warn(`Page '${slug}' missing translations for: ${missingLocales}`);
+    const untranslatedPage = {
+      ...page,
+      context: { ...page.context, mdLocale: DEFAULT_LOCALE.code },
+    };
+    createLocalizedPages(untranslatedPage, actions, missingLocales);
   });
 };
 
@@ -99,17 +140,22 @@ exports.onCreatePage = ({ page, actions }) => {
   createLocalizedPages(page, actions);
 };
 
-function createLocalizedPages(page, actions) {
+function createLocalizedPages(page, actions, locales = SUPPORTED_LOCALES) {
   const { createPage } = actions;
 
-  SUPPORTED_LOCALES.forEach((locale) => {
-    createPage({
-      ...page,
-      path: `/${locale}${page.path}`,
-      context: {
-        ...page.context,
-        initialLocale: locale,
-      },
-    });
+  locales.forEach((locale) => {
+    const localizedPage = getLocalizedPage(page, locale);
+    createPage(localizedPage);
   });
+}
+
+function getLocalizedPage(page, locale) {
+  return {
+    ...page,
+    path: `/${locale}${page.path}`,
+    context: {
+      ...page.context,
+      initialLocale: locale,
+    },
+  };
 }

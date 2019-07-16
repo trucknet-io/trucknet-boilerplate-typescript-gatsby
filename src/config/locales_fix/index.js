@@ -3,7 +3,7 @@
 
 const LOCALES = [
   {
-    code: "en-GB",
+    code: "en",
     englishTitle: "English",
     localTitle: "English",
   },

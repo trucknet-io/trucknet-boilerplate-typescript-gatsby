@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Thu Jul 11 2019 15:01:34 GMT+0300 (Israel Daylight Time)\n"
+"POT-Creation-Date: Tue Jul 16 2019 14:22:40 GMT+0300 (Israel Daylight Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
@@ -17,6 +17,21 @@ msgstr ""
 msgctxt "header.title"
 msgid "Some name"
 msgstr "Какое-то название"
+
+#: src/components/Header/Header.tsx:31
+msgctxt "header.about"
+msgid "About"
+msgstr "Ебаут"
+
+#: src/components/Header/Header.tsx:34
+msgctxt "header.svg"
+msgid "SVG"
+msgstr "ЭСВЭГЭ"
+
+#: src/components/Header/Header.tsx:37
+msgctxt "header.404"
+msgid "Not Found"
+msgstr "Не найдено"
 
 #: src/components/SvgRender/SvgRender.tsx:58
 msgctxt "svg.title"
