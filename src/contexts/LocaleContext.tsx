@@ -8,7 +8,7 @@ import {
   LOCALES_MAP,
   SUPPORTED_LOCALES,
 } from "@src/config/locales";
-import { findLocale } from "@src/utils/locale";
+import { findLocale, isSupportedLocaleInPath } from "@src/utils/locale";
 
 export interface WithLocale {
   locale: LocaleCode;
@@ -48,7 +48,7 @@ export class LocaleContextProvider extends React.Component<
 
   public componentDidMount() {
     const { initialLocale, path } = this.props;
-    if (!initialLocale) {
+    if (!initialLocale && !isSupportedLocaleInPath(path)) {
       const defaultLocale = this.getDefaultLocaleCode();
       navigate(`/${defaultLocale}${path}`, { replace: true });
     }
@@ -56,10 +56,11 @@ export class LocaleContextProvider extends React.Component<
   }
 
   public render() {
-    if (!this.props.initialLocale) {
+    const { children, initialLocale, path } = this.props;
+    if (!initialLocale && !isSupportedLocaleInPath(path)) {
       return null;
     }
-    return <Provider value={this.state}>{this.props.children}</Provider>;
+    return <Provider value={this.state}>{children}</Provider>;
   }
 
   private getDefaultLocaleCode = (): LocaleCode => {

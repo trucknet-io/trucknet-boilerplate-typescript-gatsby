@@ -1,4 +1,4 @@
-import { LocaleCode } from "@src/config/locales";
+import { LocaleCode, SUPPORTED_LOCALES } from "@src/config/locales";
 
 export const findLocale = <L extends string = LocaleCode>(
   locales: L[],
@@ -29,4 +29,22 @@ export const changeLocaleInPath = <L extends string = LocaleCode>(
   newLocale: L,
 ): string => {
   return path.replace(/^\/(.+?)\//, `/${newLocale}/`);
+};
+
+export const getLocaleFromPath = (
+  path: string,
+  supportedLocales = SUPPORTED_LOCALES,
+): string | void => {
+  const match = path.match(new RegExp(`^\/(${supportedLocales.join("|")})\/`));
+  if (!match) {
+    return;
+  }
+  return match[1];
+};
+
+export const isSupportedLocaleInPath = (
+  path: string,
+  supportedLocales = SUPPORTED_LOCALES,
+): boolean => {
+  return !!getLocaleFromPath(path, supportedLocales);
 };
