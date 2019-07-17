@@ -18,12 +18,16 @@ module.exports = ({ config, mode }) => {
 
   const rules = [
     {
-      test: /\.(ts|tsx)$/,
+      test: /\.tsx?$/,
       use: [
         {
           loader: require.resolve("awesome-typescript-loader"),
           options: {
             transpileOnly: true,
+            esModuleInterop: true,
+            resolveJsonModule: true,
+            moduleResolution: "node",
+            allowJs: true,
             useCache: true,
             jsx: "react",
           },
@@ -32,6 +36,16 @@ module.exports = ({ config, mode }) => {
           loader: require.resolve("react-docgen-typescript-loader"),
         },
       ],
+    },
+    {
+      test: /\.jsx?$/,
+      include: /(node_modules\/gatsby\/cache-dir)|(src\/config\/)/,
+      use: {
+        loader: "babel-loader",
+        options: {
+          presets: ["babel-preset-gatsby"],
+        },
+      },
     },
     {
       test: /\.md$/,

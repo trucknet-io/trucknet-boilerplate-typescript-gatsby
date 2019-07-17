@@ -6,7 +6,7 @@ import { addParameters } from "@storybook/react";
 import { withI18n } from "storybook-addon-i18n";
 
 import { SUPPORTED_LOCALES } from "@src/config/locales";
-import { MuiLocaleProvider } from "@src/layouts/RootLayout";
+import StorybookLocaleProvider from "@src/layouts/RootLayout/StorybookLocaleProvider";
 import messages from "@src/i18n/translations.json";
 
 addDecorator(
@@ -35,11 +35,11 @@ addParameters({
     { name: "Torch Red", value: "#FF1744" },
   ],
   i18n: {
-    provider: MuiLocaleProvider,
+    provider: StorybookLocaleProvider,
     providerProps: {
       messages,
     },
-    SUPPORTED_LOCALES,
+    supportedLocales: SUPPORTED_LOCALES,
   },
 });
 

@@ -9,7 +9,7 @@ import { createTheme } from "@src/config/theme";
 import { WithLocale, withLocale } from "@src/contexts/LocaleContext";
 import translationsJson from "@src/i18n/translations.json";
 
-class MuiLocaleProvider extends React.PureComponent<WithLocale> {
+export class MuiLocaleProvider extends React.PureComponent<WithLocale> {
   public render() {
     const { locale, direction } = this.props;
     return (

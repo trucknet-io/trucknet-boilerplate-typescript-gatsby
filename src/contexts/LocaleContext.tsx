@@ -27,6 +27,8 @@ const { Provider, Consumer } = React.createContext<WithLocale>({
   changeLocale: (locale: LocaleCode) => locale,
 });
 
+export { Provider as RawLocaleProvider };
+
 export class LocaleContextProvider extends React.Component<
   LocaleProps,
   WithLocale

@@ -33,7 +33,7 @@
     "test": "jest --detectOpenHandles",
     "test:ci": "npm run test -- --coverage",
     "release": "./config/deployment/release.sh",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "NODE_ENV=test start-storybook -p 9001 -c .storybook"
   },
   "engines": {
     "node": "~10.14.0",
