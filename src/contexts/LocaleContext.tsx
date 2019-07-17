@@ -52,6 +52,7 @@ export class LocaleContextProvider extends React.Component<
       const defaultLocale = this.getDefaultLocaleCode();
       navigate(`/${defaultLocale}${path}`, { replace: true });
     }
+    this.changeBodyDir(initialLocale);
   }
 
   public render() {

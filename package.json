@@ -1,5 +1,5 @@
 {
-  "name": "trucknet-boilerplate-typescript-react",
+  "name": "trucknet-boilerplate-typescript-gatsby",
   "description": "A starter kit for TypeScript-based Gatsby projects with i18n and Netlify CMS.",
   "version": "0.0.0",
   "private": true,

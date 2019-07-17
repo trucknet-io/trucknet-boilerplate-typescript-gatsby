@@ -3,12 +3,14 @@
 const path = require("path");
 const proxy = require("http-proxy-middleware");
 
+const siteUrl = "https://typescript-gatsby.boilerplates.trucknet.io";
+
 module.exports = {
   siteMetadata: {
     title: "trucknet-boilerplate-typescript-gatsby",
     description:
       "A starter kit for TypeScript-based Gatsby projects with sensible defaults.",
-    siteUrl: "https://trucknet-boilerplate-typescript-gatsby.netlify.com",
+    siteUrl,
   },
   plugins: [
     {
@@ -80,7 +82,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-canonical-urls",
       options: {
-        siteUrl: "https://trucknet-boilerplate-typescript-gatsby.netlify.com",
+        siteUrl,
       },
     },
     "gatsby-plugin-typescript",
@@ -94,6 +96,7 @@ module.exports = {
       resolve: "gatsby-plugin-netlify-cms",
       options: {
         modulePath: path.join(__dirname, "src/cms/cms.ts"),
+        publicPath: "admin",
       },
     },
     "gatsby-plugin-netlify",

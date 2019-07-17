@@ -3,7 +3,7 @@ import React from "react";
 
 import { MarkdownTemplate } from "@src/templates/MarkdownPage";
 
-class AboutPagePreview extends React.Component<PreviewTemplateProps> {
+class MarkdownPagePreview extends React.Component<PreviewTemplateProps> {
   public render() {
     const { entry, widgetFor } = this.props;
     return (
@@ -15,4 +15,4 @@ class AboutPagePreview extends React.Component<PreviewTemplateProps> {
   }
 }
 
-export default AboutPagePreview;
+export default MarkdownPagePreview;

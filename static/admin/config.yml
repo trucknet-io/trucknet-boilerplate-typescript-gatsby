@@ -22,3 +22,13 @@ collections:
     folder: "src/content/about"
     create: true
     <<: *MD_TEMPLATE_FIELDS
+  - name: "nested"
+    label: "Nested"
+    folder: "src/content/nested"
+    create: true
+    <<: *MD_TEMPLATE_FIELDS
+  - name: "nested_example"
+    label: "Nested/Example"
+    folder: "src/content/nested/example"
+    create: true
+    <<: *MD_TEMPLATE_FIELDS

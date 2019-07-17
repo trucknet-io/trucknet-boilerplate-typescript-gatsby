@@ -1,4 +1,4 @@
-# trucknet-boilerplate-typescript-gatsby
+# [trucknet-boilerplate-typescript-gatsby](https://typescript-gatsby.boilerplates.trucknet.io/)
 
 > A starter kit for TypeScript-based Gatsby projects with sensible defaults.
 
@@ -10,6 +10,14 @@ This is a starter kit for [Gatsby.js](https://www.gatsbyjs.org/) websites writte
 - TSLint (with custom TSLint rules)
 - Markdown rendering with Remark
 - Basic component structure
+- Material UI
+- JSS
+- SVG rendering support
+- Netlify CMS integration and deploy
+- Sentry error reporting
+- i18n using [lioness](https://github.com/alexanderwallin/lioness) and `gatsby-node.js` custom configs
+- Jest
+- Storybook
 
 ## Geting started
 

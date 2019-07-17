@@ -4,7 +4,7 @@ const path = require("path");
 const {
   DEFAULT_LOCALE,
   SUPPORTED_LOCALES,
-} = require("./src/config/locales_fix");
+} = require("./src/config/locales/locales");
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
@@ -119,6 +119,7 @@ exports.createPages = async ({ graphql, actions }) => {
     const missingLocales = SUPPORTED_LOCALES.filter(
       (locale) => !locales.includes(locale),
     );
+    if (!missingLocales.length) return;
     console.warn(`Page '${slug}' missing translations for: ${missingLocales}`);
     const untranslatedPage = {
       ...page,
