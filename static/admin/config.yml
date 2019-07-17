@@ -4,6 +4,7 @@ backend:
 
 media_folder: static/media
 public_folder: /media
+site_url: https://typescript-gatsby.boilerplates.trucknet.io
 
 md_template_fields: &MD_TEMPLATE_FIELDS
   fields:
