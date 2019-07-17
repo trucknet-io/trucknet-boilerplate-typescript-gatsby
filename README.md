@@ -1,4 +1,4 @@
-# gatsby-starter-typescript-plus
+# trucknet-boilerplate-typescript-gatsby
 
 > A starter kit for TypeScript-based Gatsby projects with sensible defaults.
 
@@ -16,7 +16,7 @@ This is a starter kit for [Gatsby.js](https://www.gatsbyjs.org/) websites writte
 Install this starter (assuming you have `gatsby-cli` installed) by running the following command:
 
 ```bash
-gatsby new project-name https://github.com/resir014/gatsby-starter-typescript-plus
+gatsby new project-name https://github.com/trucknet-io/trucknet-boilerplate-typescript-gatsby
 ```
 
 ## Developing
@@ -46,4 +46,4 @@ Built with [Gatsby](https://www.gatsbyjs.org/) - the blazing-fast static site ge
 
 ## Deploy
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/resir014/gatsby-starter-typescript-plus)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/trucknet-io/trucknet-boilerplate-typescript-gatsby)

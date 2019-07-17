@@ -8,7 +8,7 @@ module.exports = {
     title: "trucknet-boilerplate-typescript-gatsby",
     description:
       "A starter kit for TypeScript-based Gatsby projects with sensible defaults.",
-    siteUrl: "https://gatsby-starter-typescript-plus.netlify.com",
+    siteUrl: "https://trucknet-boilerplate-typescript-gatsby.netlify.com",
   },
   plugins: [
     {
@@ -80,7 +80,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-canonical-urls",
       options: {
-        siteUrl: "https://gatsby-starter-typescript-plus.netlify.com",
+        siteUrl: "https://trucknet-boilerplate-typescript-gatsby.netlify.com",
       },
     },
     "gatsby-plugin-typescript",
