@@ -1,3 +1,4 @@
+import { text } from "@storybook/addon-knobs";
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
@@ -12,4 +13,6 @@ stories.addParameters({
   },
 });
 
-stories.add("Default", () => <Clock classes={{ card: "f" }} />);
+stories.add("Default", () => (
+  <Clock classes={{ card: text("classes.card", "f") }} />
+));
