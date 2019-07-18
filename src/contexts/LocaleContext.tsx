@@ -19,6 +19,7 @@ export interface WithLocale {
 export type LocaleProps = {
   path: string;
   initialLocale: LocaleCode;
+  changeBodyDir?(dir: LocaleDirection): void;
 };
 
 const { Provider, Consumer } = React.createContext<WithLocale>({
@@ -75,8 +76,16 @@ export class LocaleContextProvider extends React.Component<
     return DEFAULT_LOCALE.code;
   };
 
-  private changeBodyDir = (localeCode: LocaleCode) =>
-    (document.body.dir = this.getDirection(localeCode));
+  private changeBodyDir = (localeCode: LocaleCode) => {
+    const direction = this.getDirection(localeCode);
+    const { changeBodyDir } = this.props;
+    if (changeBodyDir) {
+      changeBodyDir(direction);
+      return;
+    }
+
+    document.body.dir = direction;
+  };
 
   private getDirection = (localeCode: LocaleCode): LocaleDirection => {
     const locale = LOCALES_MAP[localeCode] || DEFAULT_LOCALE;
