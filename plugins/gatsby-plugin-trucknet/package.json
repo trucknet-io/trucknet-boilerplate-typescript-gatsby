@@ -1,0 +1,13 @@
+{
+  "name": "gatsby-plugin-trucknet",
+  "version": "1.0.0",
+  "description": "Gatsby plugin for various Trucknet needs",
+  "main": "index.js",
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "trucknet"
+  ],
+  "author": "Alex Zinkevych <alexdarkmm@gmail.com>",
+  "license": "MIT"
+}

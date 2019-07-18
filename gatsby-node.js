@@ -1,9 +1,13 @@
-'use strict'
+"use strict";
 
-const path = require('path')
+const path = require("path");
+const {
+  DEFAULT_LOCALE,
+  SUPPORTED_LOCALES,
+} = require("./src/config/locales/locales");
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
+  const { createNodeField } = actions;
 
   // Sometimes, optional fields tend to get not picked up by the GraphQL
   // interpreter if not a single content uses it. Therefore, we're putting them
@@ -11,75 +15,148 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   // trip up. An empty string is still required in replacement to `null`.
 
   switch (node.internal.type) {
-    case 'MarkdownRemark': {
-      const { permalink, layout } = node.frontmatter
-      const { relativePath } = getNode(node.parent)
+    case "MarkdownRemark": {
+      const { permalink, templateKey } = node.frontmatter;
+      const { relativePath } = getNode(node.parent);
 
-      let slug = permalink
+      let slug = permalink;
+      let locale = DEFAULT_LOCALE.code;
 
       if (!slug) {
-        slug = `/${relativePath.replace('.md', '')}/`
+        slug = relativePath.replace(/\.md$/, "");
+
+        const localeMatch = slug.match(
+          new RegExp(`\.(${SUPPORTED_LOCALES.join("|")})$`),
+        );
+        if (localeMatch) {
+          locale = localeMatch[1];
+          slug = slug.replace(localeMatch[0], "");
+        }
+
+        slug = slug.replace(/(\/|^)index$/, "");
+        slug = `/${slug}/`;
       }
 
       // Used to generate URL to view this content.
       createNodeField({
         node,
-        name: 'slug',
-        value: slug || ''
-      })
+        name: "slug",
+        value: slug || "",
+      });
 
-      // Used to determine a page layout.
+      // Used to determine a page template.
       createNodeField({
         node,
-        name: 'layout',
-        value: layout || ''
-      })
+        name: "templateKey",
+        value: templateKey || "",
+      });
+
+      // Used to set proper localized path
+      createNodeField({
+        node,
+        name: "locale",
+        value: locale,
+      });
     }
   }
-}
+};
 
 exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions
-
   const allMarkdown = await graphql(`
     {
       allMarkdownRemark(limit: 1000) {
         edges {
           node {
             fields {
-              layout
+              templateKey
               slug
+              locale
             }
           }
         }
       }
     }
-  `)
+  `);
 
   if (allMarkdown.errors) {
-    console.error(allMarkdown.errors)
-    throw new Error(allMarkdown.errors)
+    console.error(allMarkdown.errors);
+    throw new Error(allMarkdown.errors);
   }
 
-  allMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
-    const { slug, layout } = node.fields
+  // Used to determine untranslated md files and create
+  // untranslated localized pages for them
+  const localizedPagesMap = {};
 
-    createPage({
+  allMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
+    const { slug, templateKey, locale } = node.fields;
+    const page = {
       path: slug,
       // This will automatically resolve the template to a corresponding
-      // `layout` frontmatter in the Markdown.
+      // `templateKey` frontmatter in the Markdown.
       //
-      // Feel free to set any `layout` as you'd like in the frontmatter, as
+      // Feel free to set any `templateKey` as you'd like in the frontmatter, as
       // long as the corresponding template file exists in src/templates.
       // If no template is set, it will fall back to the default `page`
       // template.
       //
       // Note that the template has to exist first, or else the build will fail.
-      component: path.resolve(`./src/templates/${layout || 'page'}.tsx`),
+      component: path.resolve(`./src/templates/${templateKey}/index.ts`),
       context: {
         // Data passed to context is available in page queries as GraphQL variables.
-        slug
-      }
-    })
-  })
+        slug,
+        mdLocale: locale,
+      },
+    };
+
+    const localizedPage = getLocalizedPage(page, locale);
+    actions.createPage(localizedPage);
+
+    localizedPagesMap[slug] = localizedPagesMap[slug] || { page, locales: [] };
+    localizedPagesMap[slug].locales.push(locale);
+  });
+
+  Object.entries(localizedPagesMap).forEach(([slug, { page, locales }]) => {
+    const missingLocales = SUPPORTED_LOCALES.filter(
+      (locale) => !locales.includes(locale),
+    );
+    if (!missingLocales.length) return;
+    console.warn(`Page '${slug}' missing translations for: ${missingLocales}`);
+    const untranslatedPage = {
+      ...page,
+      context: { ...page.context, mdLocale: DEFAULT_LOCALE.code },
+    };
+    createLocalizedPages(untranslatedPage, actions, missingLocales);
+  });
+};
+
+exports.onCreatePage = ({ page, actions }) => {
+  if (page.path !== "/") {
+    // Deleting original page causes bug: pages not loading at all
+    // and out of memory exception occurs after some time.
+    // The aim was to delete original `trucknet.io/about` page
+    // and create localized pages instead such as `trucknet.io/fr/about`.
+    // actions.deletePage(page);
+  }
+
+  createLocalizedPages(page, actions);
+};
+
+function createLocalizedPages(page, actions, locales = SUPPORTED_LOCALES) {
+  const { createPage } = actions;
+
+  locales.forEach((locale) => {
+    const localizedPage = getLocalizedPage(page, locale);
+    createPage(localizedPage);
+  });
+}
+
+function getLocalizedPage(page, locale) {
+  return {
+    ...page,
+    path: `/${locale}${page.path}`,
+    context: {
+      ...page.context,
+      initialLocale: locale,
+    },
+  };
 }

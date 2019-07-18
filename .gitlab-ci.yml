@@ -1,0 +1,24 @@
+image: node:10.14-alpine
+
+stages:
+  - lint
+  - test
+
+lint:
+  stage: lint
+  before_script:
+    - apk update && apk upgrade && apk add --no-cache bash git openssh
+    - npm i
+  script:
+    - npm run lint
+  cache:
+    paths:
+      - node_modules/
+
+test:
+  stage: test
+  script:
+    - npm run test:ci
+  cache:
+    paths:
+      - node_modules/

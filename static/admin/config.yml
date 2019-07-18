@@ -1,0 +1,35 @@
+backend:
+  name: git-gateway
+  branch: develop
+
+media_folder: static/media
+public_folder: /media
+site_url: https://typescript-gatsby.boilerplates.trucknet.io
+
+md_template_fields: &MD_TEMPLATE_FIELDS
+  fields:
+    - {
+        label: "Template Key",
+        name: "templateKey",
+        widget: "hidden",
+        default: "MarkdownPage",
+      }
+    - { label: "Title", name: "title", widget: "string" }
+    - { label: "Content", name: "body", widget: "markdown" }
+
+collections:
+  - name: "about"
+    label: "About"
+    folder: "src/content/about"
+    create: true
+    <<: *MD_TEMPLATE_FIELDS
+  - name: "nested"
+    label: "Nested"
+    folder: "src/content/nested"
+    create: true
+    <<: *MD_TEMPLATE_FIELDS
+  - name: "nested_example"
+    label: "Nested/Example"
+    folder: "src/content/nested/example"
+    create: true
+    <<: *MD_TEMPLATE_FIELDS

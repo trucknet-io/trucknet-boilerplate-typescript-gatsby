@@ -4,9 +4,11 @@
 
 # Build directory
 public/
+static/admin/*.bundle.*
 
 # Gatsby cache
 .cache/
+.awcache
 
 # Logs
 logs
@@ -14,6 +16,9 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# i18n
+/src/i18n/translations.json
 
 # Runtime data
 pids

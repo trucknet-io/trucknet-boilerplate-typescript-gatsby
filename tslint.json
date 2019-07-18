@@ -1,0 +1,20 @@
+{
+  "extends": "tslint-config-trucknet-io",
+  "rules": {
+    "use-simple-attributes": false,
+    "import-name": [false, { "react": "React" }],
+    "no-void-expression": false,
+    "no-void-expression-smart": [
+      true,
+      "ignore-arrow-function-shorthand",
+      { "ignore-patterns": ["graphql`"] }
+    ],
+    "max-line-length": [
+      false,
+      {
+        "limit": 80,
+        "ignore-pattern": "^\\s+`|^\\s+\"|describe\\(\"|it\\(\"|test\\(\""
+      }
+    ]
+  }
+}
