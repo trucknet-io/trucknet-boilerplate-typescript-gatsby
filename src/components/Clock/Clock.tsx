@@ -5,7 +5,7 @@ import {
   withStyles,
   WithStyles,
 } from "@material-ui/core";
-import * as React from "react";
+import React from "react";
 
 import FormattedDate from "@src/components/FormattedDate";
 import { styles } from "./Clock.styles";

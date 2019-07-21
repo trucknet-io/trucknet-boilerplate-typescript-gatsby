@@ -1,6 +1,6 @@
 import { graphql, StaticQuery } from "gatsby";
 import React from "react";
-import Helmet from "react-helmet";
+import ReactHelmet from "react-helmet";
 
 import Header from "@src/components/Header";
 import MainLayout from "@src/layouts/MainLayout";
@@ -41,7 +41,7 @@ class IndexLayout extends React.PureComponent<IndexLayoutProps> {
     const { children, pageContext, path } = this.props;
     return (
       <RootLayout initialLocale={pageContext.initialLocale} path={path}>
-        <Helmet
+        <ReactHelmet
           title={data.site.siteMetadata.title}
           meta={[
             {

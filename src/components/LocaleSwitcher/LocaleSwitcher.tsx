@@ -1,7 +1,7 @@
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import Language from "@material-ui/icons/Language";
 import { navigate } from "gatsby";
-import * as React from "react";
+import React from "react";
 
 import { Locale, LOCALES } from "@src/config/locales";
 import { WithLocale, withLocale } from "@src/contexts/LocaleContext";
