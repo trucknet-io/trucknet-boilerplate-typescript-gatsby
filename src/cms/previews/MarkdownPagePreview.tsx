@@ -18,8 +18,8 @@ class MarkdownPagePreview extends React.PureComponent<PreviewTemplateProps> {
     const { entry, widgetFor } = this.props;
     return (
       <LocaleContextProvider
-        initialLocale={this.locale}
-        path={this.path}
+        initialLocale={this.getLocale()}
+        path={this.getPath()}
         changeBodyDir={this.changeBodyDir}>
         <MuiLocaleProvider>
           <MainLayout>
@@ -33,7 +33,7 @@ class MarkdownPagePreview extends React.PureComponent<PreviewTemplateProps> {
     );
   }
 
-  private get locale(): LocaleCode {
+  protected getLocale(): LocaleCode {
     const { entry } = this.props;
     const slug = entry.get("slug");
     if (!slug.includes(".")) {
@@ -49,14 +49,14 @@ class MarkdownPagePreview extends React.PureComponent<PreviewTemplateProps> {
     return locale;
   }
 
-  private get path(): string {
+  protected getPath(): string {
     const path = this.props.collection.get("folder").replace("src/content", "");
-    return `/${this.locale}${path};`;
+    return `/${this.getLocale}${path};`;
   }
 
-  private changeBodyDir = (direction: LocaleDirection) => {
+  protected changeBodyDir = (direction: LocaleDirection) => {
     // This is used to properly set locale direction
-    // for a preview inside an CMS iframe
+    // for a preview inside a CMS iframe
     const node = findDOMNode(this);
     if (!node) {
       return;
