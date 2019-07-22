@@ -28,7 +28,7 @@ export const changeLocaleInPath = <L extends string = LocaleCode>(
   path: string,
   newLocale: L,
 ): string => {
-  return path.replace(/^\/(.+?)\//, `/${newLocale}/`);
+  return path.replace(/^\/(.+?)(\/|$)/, `/${newLocale}$2`);
 };
 
 export const getLocaleFromPath = (
