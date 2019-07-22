@@ -1,4 +1,3 @@
-import { navigate } from "gatsby";
 import React from "react";
 
 import {
@@ -51,7 +50,15 @@ export class LocaleContextProvider extends React.Component<
     const { initialLocale, path } = this.props;
     if (!initialLocale && !isSupportedLocaleInPath(path)) {
       const defaultLocale = this.getDefaultLocaleCode();
-      navigate(`/${defaultLocale}${path}`, { replace: true });
+      // In this case it's better to redirect using native `location.replace`
+      // method because if you use Gatsby's `navigate` function the following
+      // happens: the first render of "tr.io/about" will result in null
+      // because it lacks initialLocale, so everything inside LocaleContext
+      // won't be rendered including f.e. ReactHelmet with your font link,
+      // calling `navigate` won't reload the page, it will just replace changed
+      // DOM nodes, so as a result your font will be loaded after new nodes are
+      // inserted - so you will experience font changing blink
+      window.location.replace(`/${defaultLocale}${path}`);
     }
     this.changeBodyDir(initialLocale);
   }
