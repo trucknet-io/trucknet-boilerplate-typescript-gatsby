@@ -1,5 +1,4 @@
-import { navigate } from "gatsby";
-import * as React from "react";
+import React from "react";
 
 import {
   DEFAULT_LOCALE,
@@ -19,6 +18,7 @@ export interface WithLocale {
 export type LocaleProps = {
   path: string;
   initialLocale: LocaleCode;
+  changeBodyDir?(dir: LocaleDirection): void;
 };
 
 const { Provider, Consumer } = React.createContext<WithLocale>({
@@ -50,7 +50,15 @@ export class LocaleContextProvider extends React.Component<
     const { initialLocale, path } = this.props;
     if (!initialLocale && !isSupportedLocaleInPath(path)) {
       const defaultLocale = this.getDefaultLocaleCode();
-      navigate(`/${defaultLocale}${path}`, { replace: true });
+      // In this case it's better to redirect using native `location.replace`
+      // method because if you use Gatsby's `navigate` function the following
+      // happens: the first render of "tr.io/about" will result in null
+      // because it lacks initialLocale, so everything inside LocaleContext
+      // won't be rendered including f.e. ReactHelmet with your font link,
+      // calling `navigate` won't reload the page, it will just replace changed
+      // DOM nodes, so as a result your font will be loaded after new nodes are
+      // inserted - so you will experience font changing blink
+      window.location.replace(`/${defaultLocale}${path}`);
     }
     this.changeBodyDir(initialLocale);
   }
@@ -75,8 +83,16 @@ export class LocaleContextProvider extends React.Component<
     return DEFAULT_LOCALE.code;
   };
 
-  private changeBodyDir = (localeCode: LocaleCode) =>
-    (document.body.dir = this.getDirection(localeCode));
+  private changeBodyDir = (localeCode: LocaleCode) => {
+    const direction = this.getDirection(localeCode);
+    const { changeBodyDir } = this.props;
+    if (changeBodyDir) {
+      changeBodyDir(direction);
+      return;
+    }
+
+    document.body.dir = direction;
+  };
 
   private getDirection = (localeCode: LocaleCode): LocaleDirection => {
     const locale = LOCALES_MAP[localeCode] || DEFAULT_LOCALE;

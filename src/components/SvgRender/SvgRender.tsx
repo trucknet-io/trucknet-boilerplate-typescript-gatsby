@@ -9,7 +9,7 @@ import {
   WithStyles,
 } from "@material-ui/core";
 import { T } from "lioness";
-import * as React from "react";
+import React from "react";
 
 import RickSvg from "./rick.svg";
 import { styles } from "./SvgRender.styles";

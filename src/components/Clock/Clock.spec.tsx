@@ -2,7 +2,7 @@
 import "@testing-library/jest-dom/extend-expect";
 import { cleanup, getNodeText, render } from "@testing-library/react";
 import { advanceBy, clear } from "jest-date-mock";
-import * as React from "react";
+import React from "react";
 
 import Clock from "./Clock";
 

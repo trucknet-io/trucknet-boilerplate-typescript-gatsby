@@ -2,7 +2,15 @@
   "extends": "tslint-config-trucknet-io",
   "rules": {
     "use-simple-attributes": false,
-    "import-name": [false, { "react": "React" }],
+    "import-name": [
+      true,
+      null,
+      {
+        "netlify-cms-app": "CMS"
+      },
+      null,
+      { "ignoreExternalModule": false, "case": "any-case" }
+    ],
     "no-void-expression": false,
     "no-void-expression-smart": [
       true,

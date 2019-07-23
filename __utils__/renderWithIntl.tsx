@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { LionessProvider } from "lioness";
-import * as React from "react";
+import React from "react";
 
 import { DEFAULT_LOCALE } from "@src/config/locales";
 import translationsJson from "@src/i18n/translations.json";
