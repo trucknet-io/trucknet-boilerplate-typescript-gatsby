@@ -33,8 +33,9 @@ declare module "*.webp" {
   export default path;
 }
 
+type SvgComponent = React.ElementType<React.SVGProps<"svg">>;
+
 declare module "*.svg" {
-  type SvgComponent = React.ElementType<React.SVGProps<"svg">>;
   const svg: SvgComponent;
   export default svg;
 }

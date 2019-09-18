@@ -8,8 +8,8 @@ import {
   withStyles,
   WithStyles,
 } from "@material-ui/core";
-import { T } from "lioness";
 import React from "react";
+import { T } from "react-targem";
 
 import RickSvg from "./rick.svg";
 import { styles } from "./SvgRender.styles";

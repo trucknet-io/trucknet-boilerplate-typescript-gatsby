@@ -1,17 +1,25 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Tue Jul 16 2019 14:22:40 GMT+0300 (Israel Daylight Time)\n"
+"POT-Creation-Date: Wed Sep 18 2019 12:02:48 GMT+0300 (Israel Daylight Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"Project-Id-Version: trucknet-boilerplate-typescript-react 0.0.0\n"
+"Project-Id-Version: trucknet-boilerplate-typescript-gatsby 0.0.0\n"
 "PO-Revision-Date: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "X-Generator: Poedit 2.2.1\n"
 "Last-Translator: \n"
 "Language: ru\n"
+
+#: src/utils/content/site.ts:4
+msgid "Boilerplate title"
+msgstr ""
+
+#: src/utils/content/site.ts:6
+msgid "Boilerplate description"
+msgstr ""
 
 #: src/components/Header/Header.tsx:28
 msgctxt "header.title"

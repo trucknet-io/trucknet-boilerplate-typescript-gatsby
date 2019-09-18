@@ -1,4 +1,4 @@
-export type LocaleCode = "en" | "ru" | "he";
+export type LocaleCode = string;
 
 export type LocaleDirection = "ltr" | "rtl";
 
@@ -17,3 +17,4 @@ export const LOCALES_MAP: LocalesMap;
 
 export const SUPPORTED_LOCALES: LocaleCode[];
 export const DEFAULT_LOCALE: Locale;
+export const LOCALE_TO_DATE_FNS: { [locale: string]: string };

@@ -1,29 +1,27 @@
 import React from "react";
 
 import IndexLayout from "@src/layouts/IndexLayout";
-import { PageProps } from "@src/types";
+import { MdPageProps } from "@src/types";
 
 import MarkdownTemplate from "./MarkdownTemplate";
 
-export type MarkdownPageProps = PageProps & {
-  data: {
-    markdownRemark: {
-      html: string;
-      frontmatter: {
-        title: string;
-      };
+export type MarkdownPageProps = MdPageProps<{
+  markdownRemark: {
+    html: string;
+    frontmatter: {
+      title: string;
     };
   };
-};
+}>;
 
 class MarkdownPage extends React.PureComponent<MarkdownPageProps> {
   public render() {
-    const { data, ...rest } = this.props;
+    const { markdownRemark } = this.props.data;
     return (
-      <IndexLayout {...rest}>
+      <IndexLayout {...this.props}>
         <MarkdownTemplate
-          content={data.markdownRemark.html}
-          title={data.markdownRemark.frontmatter.title}
+          content={markdownRemark.html}
+          title={markdownRemark.frontmatter.title}
         />
       </IndexLayout>
     );

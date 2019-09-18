@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: trucknet-boilerplate-typescript-react 0.0.0\n"
+"Project-Id-Version: trucknet-boilerplate-typescript-gatsby 0.0.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Tue Jul 16 2019 14:22:40 GMT+0300 (Israel Daylight Time)\n"
+"POT-Creation-Date: Wed Sep 18 2019 12:02:48 GMT+0300 (Israel Daylight Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -34,4 +34,12 @@ msgstr ""
 #: src/components/SvgRender/SvgRender.tsx:70
 msgctxt "svg.changeColor"
 msgid "Change color!"
+msgstr ""
+
+#: src/utils/content/site.ts:4
+msgid "Boilerplate title"
+msgstr ""
+
+#: src/utils/content/site.ts:6
+msgid "Boilerplate description"
 msgstr ""

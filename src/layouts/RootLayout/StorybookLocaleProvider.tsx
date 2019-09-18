@@ -1,12 +1,12 @@
 import React from "react";
+import { TargemProvider } from "react-targem";
 
-import { LocaleCode, LocaleDirection } from "@src/config/locales";
-import { RawLocaleProvider } from "@src/contexts/LocaleContext";
+import { LocaleCode } from "@src/config/locales";
+import translationsJson from "@src/i18n/translations.json";
 
 import MuiLocaleProvider from "./MuiLocaleProvider";
 
 export type StorybookLocaleProviderProps = {
-  direction: LocaleDirection;
   locale: LocaleCode;
 };
 
@@ -14,16 +14,13 @@ class StorybookLocaleProvider extends React.PureComponent<
   StorybookLocaleProviderProps
 > {
   public render() {
-    const { children, direction, locale } = this.props;
+    const { children, locale } = this.props;
     return (
-      <RawLocaleProvider
-        value={{ direction, locale, changeLocale: this.changeLocale }}>
+      <TargemProvider locale={locale} translations={translationsJson}>
         <MuiLocaleProvider>{children}</MuiLocaleProvider>
-      </RawLocaleProvider>
+      </TargemProvider>
     );
   }
-
-  private changeLocale = () => false;
 }
 
 export default StorybookLocaleProvider;

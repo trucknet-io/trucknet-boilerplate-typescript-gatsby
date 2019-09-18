@@ -2,9 +2,9 @@ import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import Language from "@material-ui/icons/Language";
 import { navigate } from "gatsby";
 import React from "react";
+import { WithLocale, withLocale } from "react-targem";
 
 import { Locale, LOCALES } from "@src/config/locales";
-import { WithLocale, withLocale } from "@src/contexts/LocaleContext";
 import { changeLocaleInPath } from "@src/utils/locale";
 
 export type LocaleSwitcherProps = WithLocale & {};
@@ -15,6 +15,7 @@ type LocaleSwitcherState = {
 
 class LocaleSwitcher extends React.Component<WithLocale, LocaleSwitcherState> {
   public state: LocaleSwitcherState = {};
+
   public render() {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);

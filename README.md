@@ -15,7 +15,7 @@ This is a starter kit for [Gatsby.js](https://www.gatsbyjs.org/) websites writte
 - SVG rendering support
 - Netlify CMS integration and deploy
 - Sentry error reporting
-- i18n using [lioness](https://github.com/alexanderwallin/lioness) and `gatsby-node.js` custom configs
+- i18n using [react-targem](https://github.com/trucknet-io/react-targem) and `gatsby-node.js` custom configs
 - Jest
 - Storybook
 

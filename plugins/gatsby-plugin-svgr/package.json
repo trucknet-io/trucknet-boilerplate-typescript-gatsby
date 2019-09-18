@@ -1,0 +1,15 @@
+{
+  "name": "gatsby-plugin-svgr",
+  "version": "1.0.0",
+  "description": "Gatsby plugin for @svgr/webpack",
+  "main": "index.js",
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "trucknet",
+    "react",
+    "svg"
+  ],
+  "author": "Alex Zinkevych <alexdarkmm@gmail.com>",
+  "license": "MIT"
+}

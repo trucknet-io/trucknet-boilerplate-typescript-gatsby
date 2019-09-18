@@ -1,1 +1,2 @@
-export { default, StaticQueryProps } from "./IndexLayout";
+export * from "./IndexLayout";
+export { default } from "./IndexLayout";

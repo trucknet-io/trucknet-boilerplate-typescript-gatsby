@@ -1,17 +1,17 @@
 import { graphql, StaticQuery } from "gatsby";
 import React from "react";
-import ReactHelmet from "react-helmet";
 
-import Header from "@src/components/Header";
+import { PageDataProvider } from "@src/contexts/PageDataContext";
 import MainLayout from "@src/layouts/MainLayout";
 import RootLayout from "@src/layouts/RootLayout";
 import { PageProps } from "@src/types";
 
+import Head from "./Head";
+
 export type StaticQueryProps = {
   site: {
     siteMetadata: {
-      title: string;
-      description: string;
+      siteUrl: string;
     };
   };
 };
@@ -26,8 +26,7 @@ class IndexLayout extends React.PureComponent<IndexLayoutProps> {
           query LayoutIndexQuery {
             site {
               siteMetadata {
-                title
-                description
+                siteUrl
               }
             }
           }
@@ -37,25 +36,17 @@ class IndexLayout extends React.PureComponent<IndexLayoutProps> {
     );
   }
 
-  private renderStaticQuery = (data: StaticQueryProps) => {
-    const { children, pageContext, path } = this.props;
+  private renderStaticQuery = (queryProps: StaticQueryProps) => {
+    const { children, data, pageContext, path } = this.props;
+    const { initialLocale } = pageContext;
+    const { siteUrl } = queryProps.site.siteMetadata;
+
     return (
-      <RootLayout initialLocale={pageContext.initialLocale} path={path}>
-        <ReactHelmet
-          title={data.site.siteMetadata.title}
-          meta={[
-            {
-              name: "description",
-              content: data.site.siteMetadata.description,
-            },
-            {
-              name: "keywords",
-              content: "gatsbyjs, gatsby, javascript, sample, something",
-            },
-          ]}
-        />
-        <Header />
-        <MainLayout>{children}</MainLayout>
+      <RootLayout initialLocale={initialLocale} path={path}>
+        <Head initialLocale={initialLocale} siteUrl={siteUrl} />
+        <PageDataProvider value={{ pageData: data }}>
+          <MainLayout>{children}</MainLayout>
+        </PageDataProvider>
       </RootLayout>
     );
   };

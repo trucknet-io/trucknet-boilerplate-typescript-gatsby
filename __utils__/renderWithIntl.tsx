@@ -1,9 +1,8 @@
 import { render } from "@testing-library/react";
-import { LionessProvider } from "lioness";
 import React from "react";
 
 import { DEFAULT_LOCALE } from "@src/config/locales";
-import translationsJson from "@src/i18n/translations.json";
+import { LocaleProvider } from "@src/contexts/LocaleProvider";
 
 const renderWithIntl = (
   ui: React.ReactElement,
@@ -11,9 +10,9 @@ const renderWithIntl = (
 ) => {
   return {
     ...render(
-      <LionessProvider locale={locale} messages={translationsJson}>
+      <LocaleProvider path="/foo" initialLocale={locale}>
         {ui}
-      </LionessProvider>,
+      </LocaleProvider>,
     ),
     // adding `history` to the returned utilities to allow us
     // to reference it in our tests (just try to avoid using

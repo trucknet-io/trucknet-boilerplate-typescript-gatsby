@@ -1,7 +1,7 @@
 import React from "react";
 
 import { LocaleCode } from "@src/config/locales";
-import { LocaleContextProvider } from "@src/contexts/LocaleContext";
+import { LocaleProvider } from "@src/contexts/LocaleProvider";
 
 import MuiLocaleProvider from "./MuiLocaleProvider";
 
@@ -15,9 +15,9 @@ class RootLayout extends React.PureComponent<RootLayoutProps> {
   public render() {
     const { children, initialLocale, path } = this.props;
     return (
-      <LocaleContextProvider initialLocale={initialLocale} path={path}>
+      <LocaleProvider initialLocale={initialLocale} path={path}>
         <MuiLocaleProvider>{children}</MuiLocaleProvider>
-      </LocaleContextProvider>
+      </LocaleProvider>
     );
   }
 }

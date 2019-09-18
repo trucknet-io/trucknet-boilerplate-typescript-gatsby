@@ -29,9 +29,14 @@ const SUPPORTED_LOCALES = LOCALES.map((l) => l.code);
 
 const DEFAULT_LOCALE = LOCALES[0];
 
+const LOCALE_TO_DATE_FNS = {
+  en: "en-GB",
+};
+
 module.exports = {
   LOCALES,
   LOCALES_MAP,
   SUPPORTED_LOCALES,
   DEFAULT_LOCALE,
+  LOCALE_TO_DATE_FNS,
 };

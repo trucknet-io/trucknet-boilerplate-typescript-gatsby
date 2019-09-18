@@ -8,7 +8,7 @@ import {
   LocaleDirection,
   SUPPORTED_LOCALES,
 } from "@src/config/locales";
-import { LocaleContextProvider } from "@src/contexts/LocaleContext";
+import { LocaleProvider } from "@src/contexts/LocaleProvider";
 import MainLayout from "@src/layouts/MainLayout";
 import { MuiLocaleProvider } from "@src/layouts/RootLayout";
 import { MarkdownTemplate } from "@src/templates/MarkdownPage";
@@ -17,10 +17,10 @@ class MarkdownPagePreview extends React.PureComponent<PreviewTemplateProps> {
   public render() {
     const { entry, widgetFor } = this.props;
     return (
-      <LocaleContextProvider
+      <LocaleProvider
         initialLocale={this.getLocale()}
         path={this.getPath()}
-        changeBodyDir={this.changeBodyDir}>
+        setBodyDir={this.setBodyDir}>
         <MuiLocaleProvider>
           <MainLayout>
             <MarkdownTemplate
@@ -29,7 +29,7 @@ class MarkdownPagePreview extends React.PureComponent<PreviewTemplateProps> {
             />
           </MainLayout>
         </MuiLocaleProvider>
-      </LocaleContextProvider>
+      </LocaleProvider>
     );
   }
 
@@ -41,7 +41,7 @@ class MarkdownPagePreview extends React.PureComponent<PreviewTemplateProps> {
     }
 
     const splitRes = slug.split(".");
-    const locale = splitRes[splitRes.length - 1] as LocaleCode;
+    const locale = splitRes[splitRes.length - 1];
     if (!SUPPORTED_LOCALES.includes(locale)) {
       return DEFAULT_LOCALE.code;
     }
@@ -54,14 +54,13 @@ class MarkdownPagePreview extends React.PureComponent<PreviewTemplateProps> {
     return `/${this.getLocale}${path};`;
   }
 
-  protected changeBodyDir = (direction: LocaleDirection) => {
+  protected setBodyDir = (direction: LocaleDirection) => {
     // This is used to properly set locale direction
     // for a preview inside a CMS iframe
     const node = findDOMNode(this);
     if (!node) {
       return;
     }
-    // tslint:disable-next-line: no-non-null-assertion
     node.ownerDocument!.body.dir = direction;
   };
 }

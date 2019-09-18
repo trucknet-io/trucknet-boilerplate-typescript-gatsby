@@ -7,9 +7,6 @@ const siteUrl = "https://typescript-gatsby.boilerplates.trucknet.io";
 
 module.exports = {
   siteMetadata: {
-    title: "trucknet-boilerplate-typescript-gatsby",
-    description:
-      "A starter kit for TypeScript-based Gatsby projects with sensible defaults.",
     siteUrl,
   },
   plugins: [
@@ -36,10 +33,10 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-react-svg",
+      resolve: "gatsby-plugin-web-font-loader",
       options: {
-        rule: {
-          include: /\.svg$/,
+        google: {
+          families: ["Roboto:300,400,500", "Assistant:400,600"],
         },
       },
     },
@@ -92,6 +89,7 @@ module.exports = {
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-material-ui",
     "gatsby-plugin-catch-links",
+    "gatsby-plugin-svgr",
     {
       resolve: "gatsby-plugin-netlify-cms",
       options: {

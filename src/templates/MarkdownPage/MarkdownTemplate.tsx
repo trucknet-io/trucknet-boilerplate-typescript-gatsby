@@ -1,7 +1,7 @@
+import { Container } from "@material-ui/core";
 import React from "react";
 
 import CmsContent from "@src/components/CmsContent";
-import PageLayout from "@src/layouts/PageLayout";
 
 export type MarkdownTemplateProps = {
   content: React.ReactNode;
@@ -12,10 +12,10 @@ class MarkdownTemplate extends React.PureComponent<MarkdownTemplateProps> {
   public render() {
     const { content, title } = this.props;
     return (
-      <PageLayout>
+      <Container>
         <h1>{title}</h1>
         <CmsContent content={content} />
-      </PageLayout>
+      </Container>
     );
   }
 }
